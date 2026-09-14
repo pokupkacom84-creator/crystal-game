@@ -72,8 +72,6 @@ body.theme-light .friendCode{background:#f0f4fa;border-color:#d0d8e4;color:var(-
 body.theme-light .achRewardBox.unlocked{background:linear-gradient(135deg,rgba(184,134,11,.12),rgba(184,134,11,.03))}
 body.theme-light .achRewardBox.locked{background:linear-gradient(135deg,rgba(224,106,0,.08),rgba(224,106,0,.02))}
 body.theme-light .scrollHint{background:#ffffff;border-color:#d0d8e4;color:#5d708c}
-body.theme-light .adminRow{background:#f5f7fb;border-color:#d0d8e4}
-body.theme-light .adminRow input{background:#fff;border-color:#d0d8e4;color:#1a2233}
 
 #bgAurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;transition:opacity .3s}
 body.theme-light #bgAurora{opacity:.35}
@@ -786,19 +784,6 @@ body.theme-light .settingRow .sico{background:#e8eef8}
 .modalBtns .btn{min-width:130px}
 #confirmOv .modalBtns .btn{min-width:100px}
 
-/* ===== АДМИН-ПАНЕЛЬ ===== */
-#adminFab{display:none;position:fixed;right:16px;bottom:calc(88px + env(safe-area-inset-bottom));z-index:55;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#b91c1c);border:2px solid #fff;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 6px 20px rgba(239,68,68,.55);font-weight:900;padding:0;line-height:1;align-items:center;justify-content:center}
-#adminFab.on{display:flex}
-#adminFab:active{transform:scale(.94)}
-.adminRow{display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#151d29,#0e131b);border:1px solid #23304a}
-.adminRow .alabel{font-size:10.5px;color:#6d7f99;text-transform:uppercase;letter-spacing:1.2px;font-weight:800}
-.adminRow input{background:var(--bg-card);border:1px solid #33415a;color:var(--text-main);border-radius:10px;padding:11px 13px;font-size:14px;font-weight:800;outline:none;width:100%;-webkit-user-select:text;user-select:text;font-family:inherit}
-.adminRow input:focus{border-color:var(--orange)}
-.adminBtns{display:flex;gap:6px;flex-wrap:wrap}
-.adminBtns .btn{flex:1;min-width:66px;padding:9px 6px;font-size:11.5px;border-radius:9px}
-#adminOv h2{background:linear-gradient(135deg,#ef4444,#fbbf24);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-#adminUidVal{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--gold);font-weight:800;letter-spacing:.5px}
-
 .multiGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;justify-content:center;max-width:380px;margin:8px 0}
 .multiGrid .card{width:100%;height:130px;transform:none;margin:0}
 .multiGrid .card .gemBox{height:38px}
@@ -1187,15 +1172,6 @@ window.firebaseReady = (function(){
   </nav>
 </div>
 
-<button id="adminFab" title="Админ-панель">🛠</button>
-
-<div class="overlay" id="adminOv">
-  <h2 style="margin-bottom:2px">🛠 АДМИН-ПАНЕЛЬ</h2>
-  <div style="font-size:10px;color:#6d7f99;text-align:center">UID: <span id="adminUidVal">—</span></div>
-  <div id="adminBody" style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:400px;max-height:72vh;overflow-y:auto;padding:4px;margin:6px 0"></div>
-  <button class="btn" id="adminClose" style="min-width:150px">ЗАКРЫТЬ</button>
-</div>
-
 <div id="scrOpen">
   <div class="topbar">
     <div class="backbtn" id="openBack">‹</div>
@@ -1417,6 +1393,7 @@ var GEM_SHAPES = [
   {id:'star',n:'Звезда',minR:5,maxR:6}
 ];
 
+// ============ КЕЙСЫ (цены нормализованы под EV дропа) ============
 var CASES = [
   {id:'free',name:'Порода',price:0,cd:90000,color:'#22c55e',tier:'base',
    desc:'Каждые 90 секунд — бесплатно',min:0,
@@ -1732,245 +1709,6 @@ function gemPolygons(shape, baseColor){
   }
   return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'+body+'</svg>';
 }
-
-/* ================================================================
-   🔐 АДМИН — ВСЕГДА ВКЛЮЧЁН (упрощённый режим)
-   ================================================================ */
-/* ================================================================
-   🔐 АДМИН — только для владельца по UID или email
-   ================================================================ */
-var ADMIN_UIDS = [
-  'FOwwvy2Pjkaf8NLlIUaVDnOQKoY2'
-];
-var ADMIN_EMAILS = [
-  'soalse221@gmail.com'
-];
-
-function isAdmin(){
-  try{
-    if(!currentUser) return false;
-    // Проверка по UID
-    if(ADMIN_UIDS.indexOf(currentUser.uid) >= 0) return true;
-    // Проверка по email
-    var em = (currentUser.email || '').toLowerCase().trim();
-    if(em && ADMIN_EMAILS.map(function(x){return x.toLowerCase().trim();}).indexOf(em) >= 0) return true;
-    return false;
-  }catch(e){ return false; }
-}
-function renderAdminBody(){
-  if(!isAdmin()) return;
-  var body = $('#adminBody');
-  var uidEl = $('#adminUidVal');
-  if(uidEl) uidEl.textContent = currentUser ? currentUser.uid : '—';
-
-  var html = '';
-
-  html += '<div class="adminRow">'+
-    '<div class="alabel">💰 Алмазы (сейчас: '+fmtGold(S.gold)+')</div>'+
-    '<input type="number" id="admGoldInput" placeholder="Сумма" value="'+Math.round(S.gold)+'" min="0">'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm" data-adm="gold+1000">+1K</button>'+
-      '<button class="btn sm" data-adm="gold+10000">+10K</button>'+
-      '<button class="btn sm" data-adm="gold+100000">+100K</button>'+
-      '<button class="btn sm" data-adm="gold+1000000">+1M</button>'+
-      '<button class="btn sm" data-adm="gold+100000000">+100M</button>'+
-    '</div>'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm primary" data-adm="goldSet">УСТАНОВИТЬ</button>'+
-      '<button class="btn sm red" data-adm="goldZero">В НОЛЬ</button>'+
-    '</div>'+
-  '</div>';
-
-  html += '<div class="adminRow">'+
-    '<div class="alabel">💎 Выдать камень редкости</div>'+
-    '<div class="adminBtns">';
-  RARITIES.forEach(function(r,i){
-    html += '<button class="btn sm" data-adm="giveRarity'+i+'" style="background:'+r.color+';color:#0a0a0a;font-weight:900">'+r.name+'</button>';
-  });
-  html += '</div>'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm purple" data-adm="giveAllRarities">Все ×5</button>'+
-      '<button class="btn sm gold" data-adm="giveLegendary10">+10 Легенд</button>'+
-      '<button class="btn sm red" data-adm="giveMythic5">+5 Мификов</button>'+
-      '<button class="btn sm gold" data-adm="givePrimordial3">+3 Первородн.</button>'+
-    '</div>'+
-  '</div>';
-
-  html += '<div class="adminRow">'+
-    '<div class="alabel">⭐ Уровень (сейчас: '+(S.level||1)+')</div>'+
-    '<input type="number" id="admLevelInput" min="1" max="50" value="'+(S.level||1)+'">'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm primary" data-adm="levelSet">УСТАНОВИТЬ</button>'+
-      '<button class="btn sm" data-adm="levelMax">MAX 50</button>'+
-      '<button class="btn sm purple" data-adm="xpAdd10000">+10K XP</button>'+
-    '</div>'+
-  '</div>';
-
-  html += '<div class="adminRow">'+
-    '<div class="alabel">⏱ Таймеры и квесты</div>'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm green" data-adm="resetFreeCd">Сброс бесплатн.</button>'+
-      '<button class="btn sm" data-adm="regenQuests">Пересоздать квесты</button>'+
-      '<button class="btn sm" data-adm="resetDaily">Сброс ежедневки</button>'+
-    '</div>'+
-  '</div>';
-
-  html += '<div class="adminRow">'+
-    '<div class="alabel">🏆 Достижения / статы / друзья</div>'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm gold" data-adm="unlockAllAch">Все ачивки</button>'+
-      '<button class="btn sm purple" data-adm="fillShowcase">Витрина — топ-3</button>'+
-      '<button class="btn sm" data-adm="statsUp">Статы ×10</button>'+
-      '<button class="btn sm" data-adm="giveFriends">+50 друзей</button>'+
-      '<button class="btn sm" data-adm="giveReferrals">+10 рефералов</button>'+
-    '</div>'+
-  '</div>';
-
-  html += '<div class="adminRow">'+
-    '<div class="alabel">⚠ Опасное</div>'+
-    '<div class="adminBtns">'+
-      '<button class="btn sm red" data-adm="clearInv">Очистить коллекцию</button>'+
-      '<button class="btn sm red" data-adm="fullReset">Полный сброс</button>'+
-    '</div>'+
-  '</div>';
-
-  body.innerHTML = html;
-}
-
-function openAdmin(){
-  if(!isAdmin()) return;
-  renderAdminBody();
-  $('#adminOv').classList.add('active');
-}
-
-function runAdminAction(act){
-  if(!isAdmin() || !S) return;
-  sfx('click');
-  var m;
-
-  if((m = act.match(/^gold\+(\d+)$/))){
-    var add = parseInt(m[1],10);
-    S.gold += add;
-    toast('+'+fmtGold(add)+' 💎');
-  } else if(act === 'goldSet'){
-    var inp = $('#admGoldInput');
-    var v = parseInt(inp ? inp.value : '', 10);
-    if(!isFinite(v) || v < 0){ toast('Некорректное значение'); return; }
-    S.gold = v;
-    toast('Баланс: '+fmtGold(v)+' 💎');
-  } else if(act === 'goldZero'){
-    S.gold = 0; toast('Баланс обнулён');
-  } else if((m = act.match(/^giveRarity(\d+)$/))){
-    var r = parseInt(m[1],10);
-    var it = makeItem(r, null);
-    S.inv.push(it);
-    toast('Выдан: '+itemName(it)+' (💎 '+fmtGold(it.value)+')');
-  } else if(act === 'giveAllRarities'){
-    for(var i=0;i<RARITIES.length;i++) for(var k=0;k<5;k++) S.inv.push(makeItem(i,null));
-    toast('Выдано '+(RARITIES.length*5)+' камней');
-  } else if(act === 'giveLegendary10'){
-    for(var i=0;i<10;i++) S.inv.push(makeItem(4,null));
-    toast('+10 легендарок');
-  } else if(act === 'giveMythic5'){
-    for(var i=0;i<5;i++) S.inv.push(makeItem(5,null));
-    toast('+5 мификов');
-  } else if(act === 'givePrimordial3'){
-    for(var i=0;i<3;i++) S.inv.push(makeItem(6,null));
-    toast('+3 первородных');
-  } else if(act === 'levelSet'){
-    var inp2 = $('#admLevelInput');
-    var lv = parseInt(inp2 ? inp2.value : '', 10);
-    if(!isFinite(lv) || lv < 1 || lv > 50){ toast('Уровень: 1–50'); return; }
-    S.level = lv; S.xp = 0;
-    toast('Уровень: '+lv);
-  } else if(act === 'levelMax'){
-    S.level = 50; S.xp = 0; toast('Уровень 50');
-  } else if(act === 'xpAdd10000'){
-    addXp(10000); toast('+10000 XP');
-  } else if(act === 'resetFreeCd'){
-    S.lastFree = 0; toast('Таймер бесплатной сброшен');
-  } else if(act === 'regenQuests'){
-    S.quests = {date:'', list:[]};
-    ensureQuests();
-    toast('Квесты обновлены');
-  } else if(act === 'resetDaily'){
-    S.daily = {lastClaim:0, streak:0, lastDate:''};
-    toast('Ежедневка сброшена');
-  } else if(act === 'unlockAllAch'){
-    var added = 0;
-    ACHIEVEMENTS.forEach(function(a){
-      if(!S.achievements[a.id]){ S.achievements[a.id] = Date.now(); S.gold += a.reward; added++; }
-    });
-    toast('Получено достижений: '+added);
-  } else if(act === 'fillShowcase'){
-    var top = S.inv.slice().sort(function(a,b){return b.value-a.value;}).slice(0,3);
-    S.showcase = top.map(function(x){return x.id;});
-    toast('Витрина заполнена');
-  } else if(act === 'statsUp'){
-    S.opened = (S.opened||0)*10;
-    S.upWin = (S.upWin||0)*10;
-    S.soldCount = (S.soldCount||0)*10;
-    S.duelWins = (S.duelWins||0)*10;
-    S.multiOpens = (S.multiOpens||0)*10;
-    toast('Статы умножены ×10');
-  } else if(act === 'giveFriends'){
-    S.friendCount = (S.friendCount||0) + 50;
-    toast('+50 к счётчику друзей');
-  } else if(act === 'giveReferrals'){
-    S.referrals = (S.referrals||0) + 10;
-    toast('+10 рефералов');
-  } else if(act === 'clearInv'){
-    showConfirm('Очистить коллекцию?','Все камни и витрина будут удалены.',function(){
-      S.inv = []; S.showcase = [];
-      persistNow(); updateInvBadge();
-      if(currentTab==='tabInv') renderInventory();
-      if(currentTab==='tabProfile') renderProfile();
-      renderAdminBody();
-      toast('Коллекция очищена');
-    });
-    return;
-  } else if(act === 'fullReset'){
-    showConfirm('Полный сброс?','Все данные будут потеряны.',function(){
-      try{ localStorage.removeItem(SAVE_KEY); localStorage.removeItem(BACKUP_KEY); }catch(e){}
-      S = defaultSave();
-      persistNow();
-      updateGoldLabels(); updateInvBadge(); updateDailyBadge();
-      if(currentTab === 'tabCases') renderCases();
-      if(currentTab === 'tabInv') renderInventory();
-      if(currentTab === 'tabProfile') renderProfile();
-      renderAdminBody();
-      toast('Сброшено');
-      if(window.publishMyScore) window.publishMyScore();
-    });
-    return;
-  } else {
-    return;
-  }
-
-  persistNow();
-  updateGoldLabels();
-  updateInvBadge();
-  updateDailyBadge();
-  if(currentTab === 'tabCases') updateCaseButtons(true);
-  if(currentTab === 'tabInv') renderInventory();
-  if(currentTab === 'tabProfile') renderProfile();
-  if(window.publishMyScore) window.publishMyScore();
-  bumpGold();
-  renderAdminBody();
-}
-
-$('#adminFab').addEventListener('click', function(){ sfx('click'); openAdmin(); });
-$('#adminClose').addEventListener('click', function(){ sfx('click'); $('#adminOv').classList.remove('active'); });
-$('#adminOv').addEventListener('click', function(e){ if(e.target.id==='adminOv') $('#adminOv').classList.remove('active'); });
-$('#adminBody').addEventListener('click', function(e){
-  var btn = e.target.closest && e.target.closest('[data-adm]');
-  if(!btn) return;
-  e.preventDefault();
-  e.stopPropagation();
-  runAdminAction(btn.dataset.adm);
-});
-
-/* ============ КОНЕЦ АДМИН-БЛОКА ============ */
 
 var SAVE_KEY='crystal_sim_v4';
 var BACKUP_KEY='crystal_sim_v4_backup';
@@ -5064,7 +4802,6 @@ document.addEventListener('keydown',function(e){
     $('#multiOv').classList.remove('active');
     $('#friendOv').classList.remove('active');
     $('#achDetailOv').classList.remove('active');
-    $('#adminOv').classList.remove('active');
     if(onlineDuel.state && onlineDuel.state.stage !== 'rolling') closeOnlineDuel();
   }
 });
@@ -5306,15 +5043,6 @@ async function startSessionForUser(user){
   updateGoldLabels(); updateInvBadge(); updateDailyBadge();
   setTab('tabCases', true);
 
-  updateAdminFab();
-  if(ADMIN_LOG_UID){
-    try{
-      console.log('%c[ADMIN] Ваш UID: %c'+user.uid+'  %cEmail: '+(user.email||'(нет)'),
-        'color:#fbbf24;font-weight:bold','color:#4ade80;font-weight:bold','color:#9fb0c8');
-      console.log('Чтобы стать админом, добавьте UID в массив ADMIN_UIDS или откройте сайт с ?admin='+ADMIN_SECRET);
-    }catch(e){}
-  }
-
   try{ setupPresence(); }catch(e){}
   try{ await publishMyFriendCode(); }catch(e){}
   try{ await applyReferralBonusIfNeeded(); }catch(e){}
@@ -5366,7 +5094,6 @@ async function boot(){
       S = null;
       _goldEls = null;
       _casesBuilt = false;
-      updateAdminFab();
       showAuthScreen('login');
       setAuthBusy(false);
     }
