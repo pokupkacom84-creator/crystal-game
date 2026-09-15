@@ -169,7 +169,6 @@ body.theme-light #bgAurora{opacity:.35}
 .btn.sm{padding:9px 13px;font-size:12.5px;border-radius:10px}
 .btn:disabled{opacity:.4;filter:grayscale(.6);pointer-events:none}
 
-/* ============ СПИСОК КЕЙСОВ ============ */
 .caseList{
   flex:1;overflow-y:auto;
   padding:6px 14px 120px;
@@ -1393,7 +1392,6 @@ var GEM_SHAPES = [
   {id:'star',n:'Звезда',minR:5,maxR:6}
 ];
 
-// ============ КЕЙСЫ (цены нормализованы под EV дропа) ============
 var CASES = [
   {id:'free',name:'Порода',price:0,cd:90000,color:'#22c55e',tier:'base',
    desc:'Каждые 90 секунд — бесплатно',min:0,
@@ -4987,7 +4985,35 @@ async function doAuthGuest(){
 
 async function doSignOut(){
   if(!fbCtx) return;
-  try { await fbCtx.signOut(fbCtx.auth); } catch(e){}
+
+  // 1) Отменяем отложенное сохранение
+  if(_persistTimer){ clearTimeout(_persistTimer); _persistTimer = null; }
+
+  // 2) Принудительно сохраняем в localStorage
+  try {
+    if(S){
+      S.savedAt = Date.now();
+      var j = JSON.stringify(S);
+      localStorage.setItem(SAVE_KEY, j);
+      try { localStorage.setItem(BACKUP_KEY, j); } catch(e){}
+    }
+  } catch(e){ console.warn('[Auth] Local save failed', e); }
+
+  // 3) Сохраняем в Firebase и ЖДЁМ завершения
+  if(currentUser && fbCtx.db && S){
+    try {
+      await fbCtx.set(
+        fbCtx.ref(fbCtx.db, 'users/' + currentUser.uid + '/save'),
+        S
+      );
+      console.log('[Auth] Данные сохранены в облако перед выходом');
+    } catch(e){
+      console.warn('[Auth] Cloud save on logout failed:', e);
+    }
+  }
+
+  // 4) Теперь безопасно выходим
+  try { await fbCtx.signOut(fbCtx.auth); } catch(e){ console.warn(e); }
 }
 
 async function loadCloudSave(uid){
