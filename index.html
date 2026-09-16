@@ -622,6 +622,106 @@ button{cursor:pointer;border:none;background:none;color:inherit}
   .card .gemBox{height:42px}
   .card .gemBox svg{width:42px;height:42px}
 }
+
+/* ============ LANDSCAPE / ROTATE ============ */
+#rotateHint{position:fixed;inset:0;z-index:99999;display:none;
+  flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  background:radial-gradient(120% 90% at 50% 0%,#1a2233 0%,#0d1117 55%,#080a0e 100%);
+  padding:24px;text-align:center}
+#rotateHint.on{display:flex}
+#rotateHint .rhIcon{font-size:72px;animation:rot 2s ease-in-out infinite}
+@keyframes rot{0%,40%{transform:rotate(0)}60%,100%{transform:rotate(90deg)}}
+#rotateHint .rhTitle{font-size:20px;font-weight:900;letter-spacing:1px;
+  background:linear-gradient(135deg,var(--orange),var(--gold));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#rotateHint .rhDesc{color:var(--muted);font-size:13px;line-height:1.5;max-width:320px}
+
+@media (orientation:landscape) and (max-height:520px){
+  .topbar{padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top))}
+  .topbar h1{font-size:15px}
+  .gold{padding:4px 9px;font-size:11px}
+
+  #hud{padding:calc(10px + env(safe-area-inset-top)) 12px 10px}
+  .hudKill,.hudTimer{padding:4px 9px;font-size:11px}
+  .hudTimer{font-size:13px}
+  .hudHP{padding:4px 9px}
+  .hudHP b{font-size:15px}
+  .hudAmmo{padding:4px 10px;min-width:96px}
+  .hudAmmo b{font-size:18px}
+  .hudWeapon,.hudXp{padding:3px 8px;font-size:9px}
+  .hudBottom{padding-bottom:4px}
+
+  .menuOverlay{padding:10px 16px;gap:8px;justify-content:center}
+  .menuOverlay h2{font-size:20px}
+  .menuOverlay p{font-size:11px;max-width:520px}
+  .handedRow{max-width:520px}
+  .handedRow .btn{padding:7px 10px;font-size:11px}
+  .btnPreview{height:120px;max-width:520px}
+  .weaponGrid{max-width:640px;max-height:34vh;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+  .weaponCard{padding:8px}
+  .weaponCard .wcIcon{font-size:20px}
+  .weaponCard .wcName{font-size:12px}
+  #btnStartMatch{padding:10px 26px;font-size:13px}
+  .statGrid{grid-template-columns:repeat(4,1fr)}
+  .statCard{padding:8px 10px}
+  .statCard .val{font-size:14px}
+
+  .caseList{flex-direction:row;flex-wrap:wrap;gap:10px;padding:6px 14px 20px;
+    align-content:flex-start}
+  .caseCard{width:calc(50% - 5px);flex-direction:column;gap:6px;padding:10px}
+  .caseIcon{width:44px;height:44px;font-size:20px}
+  .invGrid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+  .invGrid .card{height:130px}
+  .card{width:96px;height:126px;padding:6px}
+  .card .gemBox{height:42px}
+  .card .gemBox svg{width:42px;height:42px}
+  .card .weap{font-size:11px}
+  .card .skin{font-size:9.5px}
+  .card .val{font-size:10px}
+
+  .profileHero{padding:10px 12px}
+  .avatar{width:48px;height:48px;font-size:22px}
+  .profileName{font-size:15px}
+  .sectionTitle{padding:10px 4px 6px}
+  .statGrid{grid-template-columns:repeat(4,1fr);gap:6px}
+  .achGrid{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
+
+  .bottomNav{flex-direction:column;width:64px;height:100%;
+    border-top:none;border-right:1px solid #1c2634;
+    padding-bottom:0;padding-right:env(safe-area-inset-right);order:-1}
+  .navBtn{padding:6px 2px;font-size:8.5px}
+  .navBtn .ico{font-size:17px}
+  .navBtn.on:before{top:12%;bottom:12%;left:0;right:auto;
+    width:3px;height:auto;
+    background:linear-gradient(180deg,transparent,var(--orange),transparent);
+    border-radius:0 4px 4px 0}
+  .navBadge{top:3px;right:auto;left:calc(50% + 6px)}
+  #app{flex-direction:row}
+
+  .gameBtn{border-width:2px}
+  #joy{width:110px;height:110px}
+  #joy:after{width:44px;height:44px}
+
+  .editorStage{margin:8px 0}
+  .editorHeader h2{font-size:16px}
+  .editorHeader p{font-size:10.5px}
+
+  .rouletteWrap{height:130px}
+  .openResult{padding:12px 16px;gap:4px}
+  .openResult .wname{font-size:20px}
+  .openResult .skin{font-size:14px}
+  .openResult .price{font-size:13px}
+
+  .overlay{padding:14px;gap:8px}
+  .overlay h2{font-size:18px}
+}
+
+@media (orientation:landscape) and (max-height:400px){
+  .btnPreview{display:none}
+  .weaponGrid{max-height:42vh}
+  .topbar h1{font-size:13px}
+}
 </style>
 </head>
 <body>
@@ -851,6 +951,13 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 </div>
 
 <div class="toast" id="toast"></div>
+
+<div id="rotateHint">
+  <div class="rhIcon">📱</div>
+  <div class="rhTitle">ПОВЕРНИ ТЕЛЕФОН</div>
+  <div class="rhDesc">Игра оптимизирована под горизонтальный режим. Поверни устройство для продолжения.</div>
+</div>
+
 <div id="splash">
   <div class="splashLogo">🎯</div>
   <div class="splashText">Загрузка...</div>
@@ -859,6 +966,32 @@ button{cursor:pointer;border:none;background:none;color:inherit}
 <script>
 (function(){
 'use strict';
+
+/* ====== ДИАГНОСТИКА ====== */
+function __showFatal(msg, extra){
+  var el=document.getElementById('splash');
+  if(!el) return;
+  el.classList.remove('hide');
+  el.innerHTML=
+    '<div style="padding:24px;color:#ff6b6b;font-family:monospace;'+
+    'font-size:12px;line-height:1.6;text-align:center;max-width:90vw;'+
+    'word-break:break-word">'+
+    '<div style="font-size:22px;font-weight:900;margin-bottom:10px">⚠ ОШИБКА</div>'+
+    '<div style="color:#fff">'+String(msg)+'</div>'+
+    '<div style="color:#888;margin-top:10px;font-size:10px">'+
+      String(extra||'')+'</div>'+
+    '</div>';
+  el.style.opacity='1';
+  el.style.pointerEvents='auto';
+}
+window.addEventListener('error',function(ev){
+  __showFatal(ev.message||'unknown error',
+    (ev.filename||'')+':'+(ev.lineno||0)+':'+(ev.colno||0));
+});
+window.addEventListener('unhandledrejection',function(ev){
+  __showFatal('Promise rejection', String(ev.reason));
+});
+/* ====== /ДИАГНОСТИКА ====== */
 
 /* ==================== UTILS ==================== */
 var $=function(s){return document.querySelector(s);};
@@ -1127,7 +1260,7 @@ function makeRightHandLayout(){
 
 /* ==================== STATE ==================== */
 var SAVE_KEY='standoff_lite_v3';
-var S = null;   /* <— ИСПРАВЛЕНИЕ: без этого 'S=...' падает в strict mode */
+var S = null;
 
 function defaultSave(){
   return {
@@ -1553,6 +1686,7 @@ function setTab(id){
   if(id==='tabInv') renderInventory();
   if(id==='tabProfile') renderProfile();
   if(id!=='tabCombat'&&G.running&&G.state==='playing') pauseGame();
+  setTimeout(function(){ if(G.canvas) resizeCanvas(); },80);
 }
 $$('.navBtn').forEach(function(b){
   b.addEventListener('click',function(){
@@ -3203,9 +3337,28 @@ document.addEventListener('keydown',function(e){
   }
 });
 
+/* ==================== ORIENTATION ==================== */
+function updateOrientation(){
+  var hint=document.getElementById('rotateHint');
+  if(!hint) return;
+  var isPortrait=window.innerHeight>window.innerWidth;
+  var isMobile=/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+  if(isMobile && isPortrait){
+    hint.classList.add('on');
+  } else {
+    hint.classList.remove('on');
+    setTimeout(function(){ if(G.canvas) resizeCanvas(); },150);
+    setTimeout(function(){ if(G.canvas) resizeCanvas(); },400);
+  }
+}
+window.addEventListener('orientationchange',function(){
+  setTimeout(updateOrientation,350);
+});
+window.addEventListener('resize',updateOrientation);
+
 /* ==================== BOOT ==================== */
 function boot(){
-  S=loadSave();                          /* теперь S объявлена выше — не падает */
+  S=loadSave();
   G.layoutScale=S.layoutScale||1.0;
   updateGoldLabels();updateNavBadges();
 
@@ -3217,6 +3370,14 @@ function boot(){
   rebuildGameButtons();
 
   setTab('tabCombat');
+
+  /* Orientation */
+  updateOrientation();
+  try{
+    if(screen.orientation && screen.orientation.lock){
+      screen.orientation.lock('landscape').catch(function(){});
+    }
+  }catch(e){}
 
   setTimeout(function(){
     var sp=$('#splash');
@@ -3231,7 +3392,11 @@ function boot(){
   });
 }
 
-boot();
+try {
+  boot();
+} catch(e) {
+  __showFatal(e.message||e, e.stack||'');
+}
 
 })();
 </script>
