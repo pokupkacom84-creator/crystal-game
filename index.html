@@ -513,40 +513,106 @@ button{cursor:pointer;border:none;background:none;color:inherit}
   -webkit-box-orient:vertical}
 .achReward{font-size:9px;color:var(--gold);font-weight:900}
 
-/* ============ ВИТРИНА — КОМПАКТНАЯ ============ */
+/* ============================================================
+   ВИТРИНА — ПОЛНОСТЬЮ ПЕРЕПИСАНА.
+   Flexbox + жёсткие пиксельные размеры. Ничего не тянется.
+   ============================================================ */
 .showcase{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,86px));
-  gap:8px;
-  margin-top:6px;
-  justify-content:start;
-  max-width:280px
+  display:flex !important;
+  flex-wrap:wrap !important;
+  align-items:flex-start !important;
+  gap:8px !important;
+  margin:6px 0 0 !important;
+  padding:0 !important;
+  max-width:none !important;
+  width:100% !important;
+  grid-column:1/-1 !important;
+  grid-template-columns:none !important;
 }
 .scSlot{
-  aspect-ratio:0.85;
-  max-height:102px;
+  /* Жёсткие размеры — слот не может растянуться ни при каких условиях */
+  width:104px !important;
+  height:128px !important;
+  min-width:104px !important;
+  max-width:104px !important;
+  min-height:128px !important;
+  max-height:128px !important;
+  flex:0 0 104px !important;
+  aspect-ratio:auto !important;
   border-radius:10px;
   border:1.5px dashed #2a3446;
   background:linear-gradient(180deg,rgba(20,28,40,.6),rgba(10,14,20,.4));
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;
-  cursor:pointer;position:relative;overflow:hidden;transition:all .2s}
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:3px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:transform .12s,border-color .15s;
+}
 .scSlot:active{transform:scale(.96)}
-.scSlot.empty .scEmptyIcon{font-size:18px;color:#3a475e}
-.scSlot.empty .scEmptyText{font-size:8.5px;color:#4d5d75;text-transform:uppercase;
-  letter-spacing:.7px;font-weight:800}
-.scSlot.filled{padding:4px;border-style:solid}
-.scSlot.filled .card{width:100%!important;height:100%!important;border-radius:8px;
-  transform:none;padding:4px;gap:0}
-.scSlot.filled .card .gemBox{height:30px;margin:2px 0 0}
-.scSlot.filled .card .gemBox svg{width:30px;height:30px}
-.scSlot.filled .card .rar{font-size:6.5px;letter-spacing:.3px}
-.scSlot.filled .card .weap{font-size:9px;line-height:1.1}
-.scSlot.filled .card .skin{font-size:8px;-webkit-line-clamp:1;margin-top:1px}
-.scSlot.filled .card .val{font-size:8.5px;margin-top:2px}
-.scSlot.filled .card .star{font-size:9px;top:2px;right:2px}
-.scSlot .scRemove{position:absolute;top:2px;right:2px;width:16px;height:16px;
-  border-radius:50%;background:rgba(0,0,0,.8);color:#fff;font-size:10px;font-weight:900;
-  display:flex;align-items:center;justify-content:center;z-index:5}
+.scSlot.empty .scEmptyIcon{font-size:22px;color:#3a475e;line-height:1}
+.scSlot.empty .scEmptyText{font-size:9px;color:#4d5d75;text-transform:uppercase;
+  letter-spacing:.6px;font-weight:800}
+.scSlot.filled{padding:0;border-style:solid}
+
+/* Карточка внутри слота — жёстко вписываем в размер слота */
+.scSlot.filled .card{
+  width:100% !important;
+  height:100% !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  flex:none !important;
+  border-radius:9px !important;
+  padding:5px !important;
+  transform:none !important;
+  margin:0 !important;
+  box-sizing:border-box;
+  display:flex !important;
+  flex-direction:column !important;
+}
+.scSlot.filled .card .gemBox{
+  height:34px !important;
+  margin:3px 0 0 !important;
+}
+.scSlot.filled .card .gemBox svg{
+  width:34px !important;
+  height:34px !important;
+}
+.scSlot.filled .card .rar{font-size:7px !important;letter-spacing:.3px !important}
+.scSlot.filled .card .weap{font-size:10.5px !important;line-height:1.1 !important}
+.scSlot.filled .card .skin{
+  font-size:9px !important;
+  -webkit-line-clamp:1 !important;
+  display:-webkit-box !important;
+  -webkit-box-orient:vertical !important;
+  overflow:hidden !important;
+  margin-top:1px !important;
+}
+.scSlot.filled .card .val{font-size:9.5px !important;margin-top:auto !important}
+.scSlot.filled .card .star{font-size:9px !important;top:2px !important;right:2px !important}
+
+.scSlot .scRemove{
+  position:absolute;
+  top:2px;right:2px;
+  width:18px;height:18px;
+  border-radius:50%;
+  background:rgba(0,0,0,.85);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.25);
+}
 
 .dangerBox{padding:14px 15px;border-radius:12px;
   background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(239,68,68,.02));
@@ -753,7 +819,8 @@ button{cursor:pointer;border:none;background:none;color:inherit}
     align-content:start}
   .profileBody > .profileHero{grid-column:1/-1}
   .profileBody > .sectionTitle{grid-column:auto;padding:10px 4px 6px}
-  .profileBody > .showcase{grid-column:auto;margin-top:0}
+  /* ВИТРИНА — всегда на всю ширину, никогда не сжимается */
+  .profileBody > .showcase{grid-column:1/-1 !important}
   .profileBody > .questList{grid-column:auto}
   .profileBody > .statGrid{grid-column:auto}
   .profileBody > .achGrid{grid-column:1/-1}
@@ -771,11 +838,24 @@ button{cursor:pointer;border:none;background:none;color:inherit}
   .statCard .lbl{font-size:8.5px;margin-bottom:2px}
   .statCard .val{font-size:13px}
   .statCard .val small{font-size:8px}
-  .showcase{grid-template-columns:repeat(3,minmax(0,74px));gap:6px;max-width:240px}
-  .scSlot{max-height:88px}
-  .scSlot.filled .card{padding:3px}
-  .scSlot.filled .card .gemBox{height:26px}
-  .scSlot.filled .card .gemBox svg{width:26px;height:26px}
+
+  /* ВИТРИНА — уменьшаем слоты в landscape, чтобы не отнимали весь экран */
+  .showcase{gap:6px !important}
+  .scSlot{
+    width:88px !important;height:110px !important;
+    min-width:88px !important;max-width:88px !important;
+    min-height:110px !important;max-height:110px !important;
+    flex:0 0 88px !important;
+  }
+  .scSlot.filled .card{padding:4px !important}
+  .scSlot.filled .card .gemBox{height:28px !important}
+  .scSlot.filled .card .gemBox svg{width:28px !important;height:28px !important}
+  .scSlot.filled .card .rar{font-size:6.5px !important}
+  .scSlot.filled .card .weap{font-size:9.5px !important}
+  .scSlot.filled .card .skin{font-size:8px !important}
+  .scSlot.filled .card .val{font-size:8.5px !important}
+  .scSlot .scRemove{width:16px;height:16px;font-size:10px}
+
   .achGrid{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
   .achItem{padding:5px;gap:3px}
   .achIcon{font-size:20px}
@@ -1959,7 +2039,6 @@ var G={
   _botsRespawnQueue:[],
   equippedItem:null,
   touchMove:{active:false,x:0,y:0,id:null,cx:0,cy:0},
-  /* Свайп-прицел: сдвиг пальца вращает персонажа */
   touchAim:{active:false,id:null,lastX:0,lastY:0,shooting:false,moved:0},
   usingTouch:false,
   buttons:{},
@@ -1977,7 +2056,6 @@ var G={
   zombieWave:1,
   practiceMode:false,
   lastDamageVignette:0,
-  /* Эффекты стрельбы */
   shake:0,
   muzzleFlash:0,
   damageBoost:0,
@@ -2091,7 +2169,6 @@ function setupInput(){
     if(e.key==='Control') G.keys['ctrl']=false;
   });
 
-  /* Мышь — наведение */
   G.canvas.addEventListener('mousemove',function(e){
     var r=G.canvas.getBoundingClientRect();
     G.mouse.x=e.clientX-r.left;G.mouse.y=e.clientY-r.top;
@@ -2107,7 +2184,6 @@ function setupInput(){
   });
   G.canvas.addEventListener('contextmenu',function(e){e.preventDefault();});
 
-  /* Левая зона — джойстик движения */
   var joy=$('#joy');
   var moveZone=$('#moveZone');
   moveZone.addEventListener('touchstart',function(e){
@@ -2149,7 +2225,6 @@ function setupInput(){
   moveZone.addEventListener('touchend',endMove);
   moveZone.addEventListener('touchcancel',endMove);
 
-  /* Правая зона — свайп-прицел (вращает персонажа) */
   var aimZone=$('#aimZone');
   aimZone.addEventListener('touchstart',function(e){
     e.preventDefault();
@@ -2159,7 +2234,6 @@ function setupInput(){
     G.touchAim.lastX=t.clientX;
     G.touchAim.lastY=t.clientY;
     G.touchAim.moved=0;
-    /* касание не стреляет автоматически — огонь отдельной кнопкой */
     G.usingTouch=true;
   },{passive:false});
   aimZone.addEventListener('touchmove',function(e){
@@ -2170,7 +2244,6 @@ function setupInput(){
       var dx=t.clientX-G.touchAim.lastX;
       var dy=t.clientY-G.touchAim.lastY;
       if(G.player){
-        /* Горизонтальный свайп вращает, вертикаль слегка корректирует угол */
         G.player.angle+=dx*0.010;
       }
       G.touchAim.lastX=t.clientX;
@@ -2552,7 +2625,6 @@ function pointHitsWall(x,y){
   }
   return false;
 }
-/* Пересечение отрезка и окружности, возвращает t в [0..1] или -1 */
 function segmentCircle(x1,y1,x2,y2,cx,cy,r){
   var dx=x2-x1,dy=y2-y1;
   var fx=x1-cx,fy=y1-cy;
@@ -2569,7 +2641,6 @@ function segmentCircle(x1,y1,x2,y2,cx,cy,r){
   if(t2>=0&&t2<=1) return t2;
   return -1;
 }
-/* Быстрая проверка отрезка на пересечение со стеной (sampling) */
 function segmentHitsWall(x1,y1,x2,y2){
   var dist=Math.hypot(x2-x1,y2-y1);
   var steps=Math.max(1,Math.ceil(dist/10));
@@ -2621,8 +2692,6 @@ function shootAt(){
   G.lastShot=now;G.ammo--;
   var p=G.player;
   var baseAngle=p.angle;
-
-  /* Расчёт разброса */
   var moving=G.keys['w']||G.keys['a']||G.keys['s']||G.keys['d']||
     G.keys['arrowup']||G.keys['arrowdown']||G.keys['arrowleft']||G.keys['arrowright']||
     (G.touchMove.active&&Math.hypot(G.touchMove.x,G.touchMove.y)>0.3);
@@ -2643,10 +2712,8 @@ function shootAt(){
     });
   }
   sfx('shoot');
-  /* Отдача экрана и вспышка */
   G.shake=Math.min(6,G.shake+(G.weapon.recoil*90));
   G.muzzleFlash=1;
-  /* Искры из ствола */
   for(var j=0;j<5;j++){
     var pa=baseAngle+rnd(-0.5,0.5);
     G.particles.push({
@@ -2662,13 +2729,11 @@ function botShoot(bot,distToPlayer){
   var now=performance.now();
   if(now-bot.lastShot<bot.fireRate) return;
   if(!G.player) return;
-  /* Задержка реакции на первом контакте */
   if(!bot.seenAt||now-bot.seenAt<bot.reactDelay) return;
   bot.lastShot=now;
   var p=G.player;
   var baseAngle=Math.atan2(p.y-bot.y,p.x-bot.x);
   var speed=900;
-  /* Точность падает с дистанцией */
   var distFactor=clamp(1-(distToPlayer-120)/700,0.35,1);
   var spread=bot.spread/distFactor;
   var a=baseAngle+rnd(-spread,spread);
@@ -2703,7 +2768,6 @@ function update(now,dt){
   G.shake*=0.86;
   if(G.shake<0.3)G.shake=0;
 
-  /* Движение */
   var mx=0,my=0;
   if(G.keys['w']||G.keys['arrowup']) my-=1;
   if(G.keys['s']||G.keys['arrowdown']) my+=1;
@@ -2732,12 +2796,10 @@ function update(now,dt){
   resolveWallCollision(p);
   if(G.jumping&&now>=G.jumpEnd) G.jumping=false;
 
-  /* Регенерация HP */
   if(p.hp<100&&p.hp>0&&now-G.lastDamageTime>5000){
     p.hp=Math.min(100,p.hp+dt*8);
   }
 
-  /* Подбор бонусов */
   for(var i=0;i<G.powerups.length;i++){
     var pu=G.powerups[i];
     if(!pu.active&&now>=pu.respawnAt){
@@ -2755,7 +2817,6 @@ function update(now,dt){
     }
   }
 
-  /* Наведение: мышь (ПК) / свайп (тач) */
   if(!G.usingTouch){
     var wx=G.mouse.x+G.camera.x;
     var wy=G.mouse.y+G.camera.y;
@@ -2763,7 +2824,6 @@ function update(now,dt){
     p.angle=Math.atan2(wy-p.y,wx-p.x);
   }
 
-  /* Автоприцел — доводка к ближайшему видимому боту в конусе */
   if(S.options.aimAssist&&!G.ads){
     var bestB=null,bestScore=Infinity,bestAng=0;
     for(var i=0;i<G.bots.length;i++){
@@ -2774,7 +2834,7 @@ function update(now,dt){
       if(!hasLineOfSight(p.x,p.y,b.x,b.y)) continue;
       var wa=Math.atan2(b.y-p.y,b.x-p.x);
       var diff=Math.abs(normalizeAngle(wa-p.angle));
-      if(diff>0.30) continue; /* ~17° конус */
+      if(diff>0.30) continue;
       var score=d+diff*900;
       if(score<bestScore){bestScore=score;bestB=b;bestAng=wa;}
     }
@@ -2784,7 +2844,6 @@ function update(now,dt){
     }
   }
 
-  /* Стрельба */
   var shooting=G.mouse.down||G.buttons.fire&&G.buttons.fire.pressed;
   if(S.options.autoShoot){
     var nearBot=null,nearD=560;
@@ -2806,7 +2865,6 @@ function update(now,dt){
     G.reloading=false;G.ammo=G.weapon.mag;updateHUD();
   }
 
-  /* Боты */
   for(var i=0;i<G.bots.length;i++){
     var b=G.bots[i];
     if(!b.alive) continue;
@@ -2866,14 +2924,12 @@ function update(now,dt){
     resolveWallCollision(b);
   }
 
-  /* Пули: свип-коллизия */
   for(var i=G.bullets.length-1;i>=0;i--){
     var bl=G.bullets[i];
     var nx=bl.x+bl.vx*dt;
     var ny=bl.y+bl.vy*dt;
     bl.life-=dt;
 
-    /* Стена */
     var wallHit=segmentHitsWall(bl.x,bl.y,nx,ny);
     if(wallHit){
       spawnHit(wallHit.x,wallHit.y,'#8896ab');
@@ -2882,7 +2938,6 @@ function update(now,dt){
 
     if(bl.life<=0){ G.bullets.splice(i,1);continue; }
 
-    /* Цели */
     if(bl.from==='bot'){
       var tHit=segmentCircle(bl.x,bl.y,nx,ny,p.x,p.y,p.radius);
       if(tHit>=0){
@@ -2900,7 +2955,6 @@ function update(now,dt){
         if(t<0) continue;
         if(t<hitT){
           hitT=t;hitBot=bot;
-          /* Приблизительная проверка хедшота: точка попадания близко к "носу" бота */
           var hx2=bl.x+(nx-bl.x)*t;
           var hy2=bl.y+(ny-bl.y)*t;
           var relX=hx2-bot.x,relY=hy2-bot.y;
@@ -2932,7 +2986,6 @@ function update(now,dt){
     bl.x=nx;bl.y=ny;
   }
 
-  /* Гранаты */
   for(var i=G.grenades.length-1;i>=0;i--){
     var gr=G.grenades[i];
     if(gr.exploded){ G.grenades.splice(i,1);continue; }
@@ -2946,7 +2999,6 @@ function update(now,dt){
     }
   }
 
-  /* Частицы */
   for(var i=G.particles.length-1;i>=0;i--){
     var pa=G.particles[i];
     pa.x+=pa.vx*dt;pa.y+=pa.vy*dt;
@@ -2954,14 +3006,12 @@ function update(now,dt){
     if(pa.life<=0) G.particles.splice(i,1);
   }
 
-  /* Цифры урона */
   for(var i=G.damageNumbers.length-1;i>=0;i--){
     var dn=G.damageNumbers[i];
     dn.y+=dn.vy*dt;dn.life-=dt;
     if(dn.life<=0) G.damageNumbers.splice(i,1);
   }
 
-  /* Возрождение ботов */
   if(G._botsRespawnQueue.length){
     for(var i=G._botsRespawnQueue.length-1;i>=0;i--){
       if(now>=G._botsRespawnQueue[i]){
@@ -2971,7 +3021,6 @@ function update(now,dt){
     }
   }
 
-  /* Волны зомби */
   if(G.mode==='zombie'&&G.bots.length===0&&G._botsRespawnQueue.length===0){
     G.zombieWave++;
     addKillFeed('🧟 Волна '+G.zombieWave,'',true,false);
@@ -3140,7 +3189,6 @@ function render(){
   var p=G.player;
   if(!p) return;
 
-  /* Камера с тряской */
   var camX=p.x-G.W/2;
   var camY=p.y-G.H/2;
   if(G.shake>0){
@@ -3170,7 +3218,6 @@ function render(){
   ctx.save();
   ctx.translate(-camX,-camY);
 
-  /* Стены */
   for(var i=0;i<G.walls.length;i++){
     var w=G.walls[i];
     ctx.fillStyle='#1c2634';
@@ -3182,7 +3229,6 @@ function render(){
     ctx.fillRect(w.x+3,w.y+3,w.w-6,w.h-6);
   }
 
-  /* Бонусы */
   for(var i=0;i<G.powerups.length;i++){
     var pu=G.powerups[i];
     if(!pu.active) continue;
@@ -3201,7 +3247,6 @@ function render(){
     ctx.restore();
   }
 
-  /* Частицы */
   for(var i=0;i<G.particles.length;i++){
     var pa=G.particles[i];
     ctx.globalAlpha=Math.max(0,pa.life/pa.maxLife);
@@ -3212,7 +3257,6 @@ function render(){
   }
   ctx.globalAlpha=1;
 
-  /* Гранаты */
   for(var i=0;i<G.grenades.length;i++){
     var gr=G.grenades[i];
     if(gr.exploded) continue;
@@ -3221,7 +3265,6 @@ function render(){
     ctx.strokeStyle='#dc2626';ctx.lineWidth=2;ctx.stroke();
   }
 
-  /* Боты */
   for(var i=0;i<G.bots.length;i++){
     var b=G.bots[i];
     if(!b.alive) continue;
@@ -3234,7 +3277,6 @@ function render(){
     ctx.fillRect(b.x-20,b.y-b.radius-12,40*hpPct,4);
   }
 
-  /* Пули — рисуем как трассеры */
   for(var i=0;i<G.bullets.length;i++){
     var bl=G.bullets[i];
     var ang=Math.atan2(bl.vy,bl.vx);
@@ -3248,14 +3290,12 @@ function render(){
     ctx.moveTo(gx1,gy1);
     ctx.lineTo(bl.x,bl.y);
     ctx.stroke();
-    /* Яркая точка в голове трассера */
     ctx.fillStyle='#fff5cc';
     ctx.beginPath();ctx.arc(bl.x,bl.y,1.8,0,Math.PI*2);ctx.fill();
   }
 
   if(G.player&&G.state!=='end') drawPlayerUnit(ctx,G.player);
 
-  /* Вспышка от выстрела */
   if(G.muzzleFlash>0){
     var p2=G.player;
     var fg=G.muzzleFlash;
@@ -3274,7 +3314,6 @@ function render(){
     ctx.restore();
   }
 
-  /* Цифры урона */
   for(var i=0;i<G.damageNumbers.length;i++){
     var dn=G.damageNumbers[i];
     ctx.globalAlpha=Math.max(0,dn.life/dn.maxLife);
@@ -3287,7 +3326,6 @@ function render(){
 
   ctx.restore();
 
-  /* ADS overlay */
   if(G.ads){
     var vw=G.W,vh=G.H;
     var overlayR=Math.min(vw,vh)*0.28;
@@ -4127,9 +4165,13 @@ function renderProfile(){
       var inner=document.createElement('div');
       inner.style.cssText='width:100%;height:100%;position:relative';
       var card=makeCard(item);
-      card.style.cssText='width:100%;height:100%;border-radius:8px;padding:4px;'+
-        'transform:none';
+      card.style.cssText='width:100%;height:100%;max-width:100%;max-height:100%;'+
+        'border-radius:8px;padding:4px;transform:none;box-sizing:border-box;'+
+        'display:flex;flex-direction:column';
       card.querySelector('.gemBox').style.height='26px';
+      card.querySelector('.gemBox').style.margin='2px 0 0';
+      var svg=card.querySelector('.gemBox svg');
+      if(svg){svg.style.width='26px';svg.style.height='26px';}
       inner.appendChild(card);
       var rm=document.createElement('div');
       rm.className='scRemove';rm.textContent='×';
