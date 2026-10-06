@@ -136,9 +136,9 @@ body.theme-light #bgAurora{opacity:.35}
   display:flex;align-items:center;gap:4px;transition:transform .15s;flex:0 0 auto;
   will-change:transform}
 .gold.bump{transform:scale(1.12)}
-.goldMark{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;min-width:17px;border-radius:50%;background:linear-gradient(145deg,#fff2a8,#ffd23f 55%,#d99600);color:#6b4300;font-size:10px;font-weight:1000;line-height:1;box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 1px 3px rgba(0,0,0,.35);font-family:Arial,sans-serif;vertical-align:-3px}
+.goldMark{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;min-width:18px;border-radius:50%;background:radial-gradient(circle at 32% 25%,#fff7bd 0,#ffe36a 25%,#f6bd25 58%,#b86b00 100%);border:1px solid #ffe98a;color:#7a4700;font-size:10px;font-weight:1000;line-height:1;box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 1px 3px rgba(0,0,0,.35);font-family:Arial,sans-serif;vertical-align:-3px}
 
-.gold:before{content:'G';font-size:.82em;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#fff2a8,#ffd23f 55%,#d99600);color:#6b4300;font-weight:1000;box-shadow:inset 0 1px 1px rgba(255,255,255,.75),0 1px 3px rgba(0,0,0,.35);font-family:Arial,sans-serif}
+.gold:before{content:'G';font-size:.82em;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:radial-gradient(circle at 32% 25%,#fff7bd 0,#ffe36a 25%,#f6bd25 58%,#b86b00 100%);border:1px solid #ffe98a;color:#7a4700;font-weight:1000;box-shadow:inset 0 1px 1px rgba(255,255,255,.75),0 1px 3px rgba(0,0,0,.35);font-family:Arial,sans-serif}
 
 .iconbtn{width:34px;height:34px;border-radius:10px;background:var(--bg-card);border:1px solid #2b384c;
   color:#9fb0c8;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;
@@ -1119,7 +1119,7 @@ window.firebaseReady = (function(){
         <div class="gold"><span class="goldVal">0</span></div>
       </div>
       <div class="body">
-        <div class="upLabel"><span>Ваши камни · до 3 шт.</span><em id="upMineSum"></em></div>
+        <div class="upLabel"><span>Ваша голда · до 3 слотов</span><em id="upMineSum"></em></div>
         <div class="upRow" id="upMine"></div>
         <div class="upCenter">
           <div class="wheelBox">
@@ -1131,7 +1131,7 @@ window.firebaseReady = (function(){
             </div>
             <div id="upPointer"></div>
           </div>
-          <div id="upChance">Выберите камни для огранки<small>Шанс = сумма / стоимость цели (макс. 80%)</small></div>
+          <div id="upChance">Выберите слоты для апгрейда<small>Шанс = сумма / стоимость цели (макс. 80%)</small></div>
           <div class="upBtns">
             <button class="btn primary" id="btnDoUpgrade" disabled>ОГРАНИТЬ</button>
             <button class="btn sm" id="btnUpReset">СБРОС</button>
@@ -1399,22 +1399,22 @@ var CASES = [
    desc:'Каждые 90 секунд — бесплатно',min:0,
    odds:[[0,0.62],[1,0.26],[2,0.10],[3,0.018],[4,0.0018],[5,0.0002],[6,0]]},
   {id:'mine',name:'Шахта',price:400,cd:0,color:'#4b69ff',tier:'base',
-   desc:'Каждый камень не дешевле 100 <span class="goldMark">G</span>',min:100,
+   desc:'Каждая награда не ниже 100 <span class="goldMark">G</span>',min:100,
    odds:[[0,0.36],[1,0.32],[2,0.22],[3,0.078],[4,0.019],[5,0.0025],[6,0.0005]]},
   {id:'deep',name:'Глубина',price:1250,cd:0,color:'#6366f1',tier:'advanced',
-   desc:'Каждый камень не дешевле 300 <span class="goldMark">G</span>',min:300,
+   desc:'Каждая награда не ниже 300 <span class="goldMark">G</span>',min:300,
    odds:[[0,0.14],[1,0.26],[2,0.32],[3,0.20],[4,0.062],[5,0.016],[6,0.002]]},
   {id:'cave',name:'Пещера',price:3000,cd:0,color:'#7c3aed',tier:'advanced',
-   desc:'Каждый камень не дешевле 600 <span class="goldMark">G</span>',min:600,
+   desc:'Каждая награда не ниже 600 <span class="goldMark">G</span>',min:600,
    odds:[[1,0.18],[2,0.32],[3,0.30],[4,0.15],[5,0.043],[6,0.007]]},
   {id:'vault',name:'Сокровищница',price:8000,cd:0,color:'#8847ff',tier:'rare',
    desc:'От 1200 <span class="goldMark">G</span> · только «Сердце» и «Звезда»',min:1200,highOnly:true,
    odds:[[3,0.48],[4,0.36],[5,0.13],[6,0.03]]},
   {id:'ore',name:'Руда',price:12000,cd:0,color:'#a855f7',tier:'rare',
-   desc:'Каждый камень не дешевле 2500 <span class="goldMark">G</span>',min:2500,
+   desc:'Каждая награда не ниже 2500 <span class="goldMark">G</span>',min:2500,
    odds:[[3,0.30],[4,0.44],[5,0.22],[6,0.04]]},
   {id:'meteor',name:'Метеорит',price:20000,cd:0,color:'#d946ef',tier:'epic',
-   desc:'Каждый камень не дешевле 5000 <span class="goldMark">G</span>',min:5000,
+   desc:'Каждая награда не ниже 5000 <span class="goldMark">G</span>',min:5000,
    odds:[[4,0.52],[5,0.40],[6,0.08]]},
   {id:'abyss',name:'Бездна',price:50000,cd:0,color:'#eb4b4b',tier:'legendary',
    desc:'От 10000 <span class="goldMark">G</span> · только Мифик и Первородный',min:10000,
@@ -1631,7 +1631,7 @@ var AVATARS = [
   {id:'ice',     name:'Лёд',       icon:'❄️', unlock:function(){return (S.byRarity[5]||0)>=3;},   desc:'3 мифика'},
   {id:'shadow',  name:'Тень',      icon:'🌑', unlock:function(){return S.opened>=100;},           desc:'100 открытий'},
   {id:'rainbow', name:'Радуга',    icon:'🌈', unlock:function(){return (S.level||1)>=25;},         desc:'25 уровень'},
-  {id:'emperor', name:'Император', icon:'👑', unlock:function(){return (S.byRarity[6]||0)>=1;},   desc:'Первородный камень'}
+  {id:'emperor', name:'Император', icon:'👑', unlock:function(){return (S.byRarity[6]||0)>=1;},   desc:'Элитная награда'}
 ];
 
 var PROFILE_BGS = [
@@ -2819,6 +2819,10 @@ function confetti(color,count){
   setTimeout(function(){box.remove();},3400);
 }
 
+function goldItemSvg(item){
+  return '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="goldFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a0"/><stop offset=".28" stop-color="#ffd84a"/><stop offset=".62" stop-color="#e9a915"/><stop offset="1" stop-color="#9b5d00"/></linearGradient><linearGradient id="goldEdge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe879"/><stop offset="1" stop-color="#a76300"/></linearGradient><filter id="goldShadow"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".45"/></filter></defs><g filter="url(#goldShadow)"><path d="M20 31 L76 31 L86 42 L75 76 L25 76 L14 42 Z" fill="url(#goldEdge)" stroke="#6f4200" stroke-width="2"/><path d="M20 31 L76 31 L86 42 L75 68 L25 68 L14 42 Z" fill="url(#goldFace)"/><path d="M22 31 L75 31 L83 40 L17 40 Z" fill="#fff4a8" opacity=".55"/><path d="M30 47 Q50 38 70 47 L67 59 Q50 66 33 59 Z" fill="#b87505" opacity=".42"/><text x="50" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="900" fill="#fff1a1" stroke="#8a5300" stroke-width="1">G</text></g></svg>';
+}
+
 function makeCard(item,cls){
   var r=RARITIES[item.rarity]||RARITIES[0];
   var shp=GEM_SHAPES[item.shape]||GEM_SHAPES[0];
@@ -2826,11 +2830,11 @@ function makeCard(item,cls){
   el.className='card'+(cls?' '+cls:'');
   el.style.borderColor=hexA(r.color,0.4);
   el.style.background='linear-gradient(180deg, '+hexA(r.color,0.15)+' 0%, '+varColor('--bg-card')+' 60%)';
-  el.style.setProperty('--glow-color',hexA(item.color,0.85));
+  el.style.setProperty('--glow-color',hexA('#ffd166',0.85));
   el.innerHTML=
     '<div class="rar" style="color:'+hexA(r.color,0.9)+'">'+r.name+'</div>'+
-    '<div class="gemBox">'+gemPolygons(shp.id,item.color)+'</div>'+
-    '<div class="weap" style="color:'+r.color+'">'+item.material+'</div>'+
+    '<div class="gemBox">'+goldItemSvg(item)+'</div>'+
+    '<div class="weap" style="color:'+r.color+'">Золотой слиток</div>'+
     '<div class="skin">'+shp.n+'</div>'+
     '<div class="val"><span class="goldMark">G</span> '+fmtGold(item.value)+'</div>';
   return el;
@@ -3455,7 +3459,7 @@ function renderInventory(){
   items.sort(SORTS[invSort]);
   if(items.length===0){
     grid.innerHTML='<div class="empty" style="grid-column:1/-1">'+
-      (S.inv.length?'Нет камней с таким фильтром':'Коллекция пуста.<br>Спустись в бесплатную шахту!')+'</div>';
+      (S.inv.length?'Нет наград с таким фильтром':'Коллекция пуста.<br>Спустись в бесплатную шахту!')+'</div>';
     updateInvFoot();
     return;
   }
@@ -3497,10 +3501,10 @@ function removeFromShowcase(ids){ S.showcase=S.showcase.filter(function(id){retu
 $('#btnSellAll').addEventListener('click',function(){
   var keep=S.inv.filter(function(i){return S.showcase.indexOf(i.id)>=0;});
   var sell=S.inv.filter(function(i){return S.showcase.indexOf(i.id)<0;});
-  if(!sell.length){toast('Нечего продавать');return;}
+  if(!sell.length){toast('Нечего обменивать');return;}
   var total=sell.reduce(function(s,i){return s+sellPrice(i);},0);
   showConfirm('Продать всё лишнее?',
-    'Будет продано <b>'+sell.length+'</b> камней за <b><span class="goldMark">G</span> '+fmtGold(total)+'</b>.<br>Камни с витрины останутся.',
+    'Будет продано <b>'+sell.length+'</b> наград за <b><span class="goldMark">G</span> '+fmtGold(total)+'</b>.<br>Камни с витрины останутся.',
     function(){
       S.inv=keep;
       S.gold+=total; S.earned+=total;
@@ -3643,7 +3647,7 @@ function renderUpgrade(){
   $('#btnDoUpgrade').disabled=true;
   $('#btnUpReset').disabled=false;
   $('#upMineSum').textContent='';
-  $('#upChance').innerHTML='Выберите камни для огранки<small>Шанс = сумма / стоимость цели (макс. 80%)</small>';
+  $('#upChance').innerHTML='Выберите слоты для апгрейда<small>Шанс = сумма / стоимость цели (макс. 80%)</small>';
   var hub=$('#upHubPct');
   if(hub){ hub.textContent='—'; hub.className='hubPct'; }
   var w=$('#upWheel');
@@ -3739,7 +3743,7 @@ function updateUpButton(){
   } else {
     btn.disabled=true;
     if(hub){ hub.textContent='—'; hub.className='hubPct'; }
-    if(!upSel.length) $('#upChance').innerHTML='Выберите камни для огранки<small>Объединяйте до 3 камней</small>';
+    if(!upSel.length) $('#upChance').innerHTML='Выберите слоты для апгрейда<small>Объединяйте до 3 камней</small>';
     else $('#upChance').innerHTML=fmtGold(upTotal())+' <span class="goldMark">G</span> <small>Выберите цель снизу</small>';
   }
 }
