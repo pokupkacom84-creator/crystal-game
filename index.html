@@ -11,7 +11,7 @@
   --bg-dark:#0b0e13; --bg-panel:#101720; --bg-card:#0e131b; --border-color:#23304a;
   --text-main:#e6ecf5; --text-muted:#7b8ca6; --gold:#ffd166; --orange:#ff8a2b;
   --red-danger:#ef4444; --green-success:#22c55e;
-  --ico-case:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3h12l4 6-10 13L2 9z'/%3E%3Cpath d='M11 3 8 9l4 13 4-13-3-6'/%3E%3Cpath d='M2 9h20'/%3E%3C/svg%3E");
+  --ico-case:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23fff4a3'/%3E%3Cstop offset='.28' stop-color='%23ffd84a'/%3E%3Cstop offset='.65' stop-color='%23e9a915'/%3E%3Cstop offset='1' stop-color='%23965a00'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M10 20h38l7 9-8 25H17L9 29z' fill='url(%23g)' stroke='%23fff0a0' stroke-width='2'/%3E%3Cpath d='M10 20h38l7 9H9z' fill='%23fff0a0' opacity='.55'/%3E%3Cpath d='M19 32h27l-3 13H22z' fill='%23b87505' opacity='.45'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial' font-size='15' font-weight='900' fill='%23fff4b0'%3EG%3C/text%3E%3C/svg%3E");
   --ico-inv:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='14' x='2' y='7' rx='2' ry='2'/%3E%3Cpath d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'/%3E%3C/svg%3E");
   --ico-up:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 15-6-6-6 6'/%3E%3C/svg%3E");
   --ico-top:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9H4.5a2.5 2.5 0 0 1 0-5H6'/%3E%3Cpath d='M18 9h1.5a2.5 2.5 0 0 0 0-5H18'/%3E%3Cpath d='M4 22h16'/%3E%3Cpath d='M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22'/%3E%3Cpath d='M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22'/%3E%3Cpath d='M18 2H6v7a6 6 0 0 0 12 0V2Z'/%3E%3C/svg%3E");
@@ -997,6 +997,19 @@ body.theme-light .authInput{border-color:#c9d3e0;background:#fff;color:#1a2233}
   .card.win{ animation:none }
   .caseCard{ transition:none }
 }
+
+.goldBarCard{position:relative;overflow:hidden}
+.goldBarCard:before{content:'';position:absolute;inset:-35% -25%;background:radial-gradient(circle,rgba(255,206,74,.12),transparent 55%);pointer-events:none}
+.goldBarTag{font-size:9px;font-weight:900;letter-spacing:2px;color:#f7d35a;text-align:center}
+.goldBarBox{height:66px!important;margin:3px 0 0!important}
+.goldBarBox svg{width:78px!important;height:64px!important;filter:drop-shadow(0 7px 10px rgba(0,0,0,.45))}
+.goldBarTitle{font-size:14px!important;font-weight:900!important;color:#ffe08a!important;text-align:center}
+.goldBarQuantity{font-size:18px!important;font-weight:1000!important;color:#fff2a9!important;text-align:center}
+.goldBarCard .val{display:none!important}
+.goldBarCard .skin{color:#fff2a9!important}
+.caseIconGraphic{filter:drop-shadow(0 0 8px rgba(255,204,64,.35))}
+.upGoldLabel{color:#ffd84a!important}
+
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -1115,7 +1128,7 @@ window.firebaseReady = (function(){
 
     <div class="tab" id="tabUp">
       <div class="topbar">
-        <h1>ОГРАНКА</h1>
+        <h1>АПГРЕЙД</h1>
         <div class="gold"><span class="goldVal">0</span></div>
       </div>
       <div class="body">
@@ -1131,7 +1144,7 @@ window.firebaseReady = (function(){
             </div>
             <div id="upPointer"></div>
           </div>
-          <div id="upChance">Выберите слоты для апгрейда<small>Шанс = сумма / стоимость цели (макс. 80%)</small></div>
+          <div id="upChance">Выберите слитки для апгрейда<small>Шанс = сумма / стоимость цели (макс. 80%)</small></div>
           <div class="upBtns">
             <button class="btn primary" id="btnDoUpgrade" disabled>ОГРАНИТЬ</button>
             <button class="btn sm" id="btnUpReset">СБРОС</button>
@@ -1399,28 +1412,28 @@ var CASES = [
    desc:'Каждые 90 секунд — бесплатно',min:0,
    odds:[[0,0.62],[1,0.26],[2,0.10],[3,0.018],[4,0.0018],[5,0.0002],[6,0]]},
   {id:'mine',name:'Шахта',price:400,cd:0,color:'#4b69ff',tier:'base',
-   desc:'Каждая награда не ниже 100 <span class="goldMark">G</span>',min:100,
+   desc:'Каждый слиток не ниже 100 <span class="goldMark">G</span>',min:100,
    odds:[[0,0.36],[1,0.32],[2,0.22],[3,0.078],[4,0.019],[5,0.0025],[6,0.0005]]},
   {id:'deep',name:'Глубина',price:1250,cd:0,color:'#6366f1',tier:'advanced',
-   desc:'Каждая награда не ниже 300 <span class="goldMark">G</span>',min:300,
+   desc:'Каждый слиток не ниже 300 <span class="goldMark">G</span>',min:300,
    odds:[[0,0.14],[1,0.26],[2,0.32],[3,0.20],[4,0.062],[5,0.016],[6,0.002]]},
   {id:'cave',name:'Пещера',price:3000,cd:0,color:'#7c3aed',tier:'advanced',
-   desc:'Каждая награда не ниже 600 <span class="goldMark">G</span>',min:600,
+   desc:'Каждый слиток не ниже 600 <span class="goldMark">G</span>',min:600,
    odds:[[1,0.18],[2,0.32],[3,0.30],[4,0.15],[5,0.043],[6,0.007]]},
   {id:'vault',name:'Сокровищница',price:8000,cd:0,color:'#8847ff',tier:'rare',
-   desc:'От 1200 <span class="goldMark">G</span> · только «Сердце» и «Звезда»',min:1200,highOnly:true,
+   desc:'От 1200 <span class="goldMark">G</span> за один слиток',min:1200,highOnly:true,
    odds:[[3,0.48],[4,0.36],[5,0.13],[6,0.03]]},
   {id:'ore',name:'Руда',price:12000,cd:0,color:'#a855f7',tier:'rare',
-   desc:'Каждая награда не ниже 2500 <span class="goldMark">G</span>',min:2500,
+   desc:'Каждый слиток не ниже 2500 <span class="goldMark">G</span>',min:2500,
    odds:[[3,0.30],[4,0.44],[5,0.22],[6,0.04]]},
   {id:'meteor',name:'Метеорит',price:20000,cd:0,color:'#d946ef',tier:'epic',
-   desc:'Каждая награда не ниже 5000 <span class="goldMark">G</span>',min:5000,
+   desc:'Каждый слиток не ниже 5000 <span class="goldMark">G</span>',min:5000,
    odds:[[4,0.52],[5,0.40],[6,0.08]]},
   {id:'abyss',name:'Бездна',price:50000,cd:0,color:'#eb4b4b',tier:'legendary',
-   desc:'От 10000 <span class="goldMark">G</span> · только Мифик и Первородный',min:10000,
+   desc:'От 10000 <span class="goldMark">G</span> за один слиток',min:10000,
    odds:[[5,0.68],[6,0.32]]},
   {id:'cosmos',name:'Космос',price:100000,cd:0,color:'#ff5c1a',tier:'mythic',
-   desc:'От 25000 <span class="goldMark">G</span> · только Первородный',min:25000,
+   desc:'От 25000 <span class="goldMark">G</span> за один слиток',min:25000,
    odds:[[6,1.0]]}
 ];
 
@@ -1442,12 +1455,12 @@ var QUEST_POOL = [
   {id:'q_up_win_2',    type:'upWin',     target:2,     reward:350,  icon:'🔨', name:'Удачная огранка',    desc:'Успешно ограни 2 раза'},
   {id:'q_up_win_5',    type:'upWin',     target:5,     reward:1000, icon:'🔨', name:'Точный глаз',        desc:'Успешно ограни 5 раз'},
   {id:'q_up_lose_3',   type:'upLose',    target:3,     reward:150,  icon:'💀', name:'Стойкость',          desc:'Провали 3 огранки'},
-  {id:'q_drop_rare',   type:'dropRare',  target:5,     reward:250,  icon:'🔷', name:'Редкая жила',        desc:'Добудь 5 редких камней'},
+  {id:'q_drop_rare',   type:'dropRare',  target:5,     reward:250,  icon:'🔷', name:'Редкая жила',        desc:'Добудь 5 редких слитков'},
   {id:'q_drop_epic',   type:'dropEpic',  target:3,     reward:400,  icon:'🟣', name:'Эпический улов',     desc:'Добудь 3 эпических'},
-  {id:'q_drop_leg',    type:'dropLegend',target:1,     reward:600,  icon:'🌸', name:'Легендарная находка',desc:'Найди 1 легендарный камень'},
-  {id:'q_drop_myth',   type:'dropMyth',  target:1,     reward:1500, icon:'🔥', name:'Мифическая охота',   desc:'Найди мифический камень'},
-  {id:'q_sell_10',     type:'sellItems', target:10,    reward:220,  icon:'🛒', name:'Торговец',           desc:'Продай 10 камней'},
-  {id:'q_sell_30',     type:'sellItems', target:30,    reward:750,  icon:'🛒', name:'Оптовик',            desc:'Продай 30 камней'},
+  {id:'q_drop_leg',    type:'dropLegend',target:1,     reward:600,  icon:'🌸', name:'Легендарная находка',desc:'Найди 1 крупный слиток'},
+  {id:'q_drop_myth',   type:'dropMyth',  target:1,     reward:1500, icon:'🔥', name:'Мифическая охота',   desc:'Найди крупный слиток'},
+  {id:'q_sell_10',     type:'sellItems', target:10,    reward:220,  icon:'🛒', name:'Торговец',           desc:'Продай 10 слитков'},
+  {id:'q_sell_30',     type:'sellItems', target:30,    reward:750,  icon:'🛒', name:'Оптовик',            desc:'Продай 30 слитков'},
   {id:'q_sell_earn',   type:'sellEarn',  target:20000, reward:350,  icon:'💵', name:'Прибыль',            desc:'Заработай 20K с продаж'},
   {id:'q_sell_earn2',  type:'sellEarn',  target:80000, reward:1200, icon:'💵', name:'Крупный куш',        desc:'Заработай 80K с продаж'},
   {id:'q_multi_1',     type:'multiOpen', target:1,     reward:300,  icon:'🎰', name:'Мульти-удача',       desc:'Открой мульти-шахту'},
@@ -1463,9 +1476,9 @@ var ACHIEVEMENTS = [
   {id:'opener_10', name:'Старатель',       desc:'Открой 10 шахт',              icon:'⛏️', check:function(){return S.opened>=10;},             reward:250},
   {id:'opener_50', name:'Шахтёр',          desc:'Открой 50 шахт',              icon:'⛏️', check:function(){return S.opened>=50;},             reward:1200},
   {id:'opener_200',name:'Мастер-геолог',   desc:'Открой 200 шахт',             icon:'🏔️', check:function(){return S.opened>=200;},            reward:5000},
-  {id:'col_10',    name:'Коллекционер',    desc:'10 камней в коллекции',       icon:'🎒', check:function(){return S.inv.length>=10;},         reward:400},
-  {id:'col_50',    name:'Ювелир',          desc:'50 камней в коллекции',       icon:'<span class="goldMark">G</span>', check:function(){return S.inv.length>=50;},         reward:2000},
-  {id:'col_150',   name:'Хранитель сокровищ',desc:'150 камней в коллекции',    icon:'🏛️', check:function(){return S.inv.length>=150;},        reward:10000},
+  {id:'col_10',    name:'Коллекционер',    desc:'10 слитков в коллекции',       icon:'🎒', check:function(){return S.inv.length>=10;},         reward:400},
+  {id:'col_50',    name:'Ювелир',          desc:'50 слитков в коллекции',       icon:'<span class="goldMark">G</span>', check:function(){return S.inv.length>=50;},         reward:2000},
+  {id:'col_150',   name:'Хранитель сокровищ',desc:'150 слитков в коллекции',    icon:'🏛️', check:function(){return S.inv.length>=150;},        reward:10000},
   {id:'rich_100k', name:'Накопитель',      desc:'Накопить 100K голды',       icon:'💵', check:function(){return S.gold>=100000;},           reward:1200},
   {id:'rich_1m',   name:'Миллионер',       desc:'Накопить 1M голды',         icon:'💰', check:function(){return S.gold>=1000000;},          reward:20000},
   {id:'up_first',  name:'Первый прогон',   desc:'Сделай первую огранку',       icon:'⚙️', check:function(){return (S.upWin+S.upLose)>=1;},    reward:150},
@@ -1476,14 +1489,14 @@ var ACHIEVEMENTS = [
   {id:'up_lose_10',name:'Невезучий',       desc:'10 провалов подряд',          icon:'💀', check:function(){return S.upLoseStreak>=10;},       reward:500},
   {id:'rare_first',name:'Редкая находка',  desc:'Первый редкий камень',        icon:'🔷', check:function(){return (S.byRarity[2]||0)>=1;},     reward:200},
   {id:'epic_first',name:'Эпическая жила',  desc:'Первый эпический камень',     icon:'🟣', check:function(){return (S.byRarity[3]||0)>=1;},     reward:500},
-  {id:'leg_first', name:'Легенда',         desc:'Первый легендарный камень',   icon:'🌸', check:function(){return (S.byRarity[4]||0)>=1;},     reward:1500},
-  {id:'myth_first',name:'Миф',             desc:'Первый мифический камень',    icon:'🔥', check:function(){return (S.byRarity[5]||0)>=1;},     reward:4000},
+  {id:'leg_first', name:'Легенда',         desc:'Первый крупный слиток',   icon:'🌸', check:function(){return (S.byRarity[4]||0)>=1;},     reward:1500},
+  {id:'myth_first',name:'Миф',             desc:'Первый крупный слиток',    icon:'🔥', check:function(){return (S.byRarity[5]||0)>=1;},     reward:4000},
   {id:'prim_first',name:'Первородный',     desc:'Первый первородный камень',   icon:'👑', check:function(){return (S.byRarity[6]||0)>=1;},     reward:12000},
-  {id:'sell_100',  name:'Торговец',        desc:'Продай 100 камней',           icon:'🛒', check:function(){return (S.soldCount||0)>=100;},     reward:1200},
-  {id:'sell_500',  name:'Оптовая торговля',desc:'Продай 500 камней',           icon:'🏪', check:function(){return (S.soldCount||0)>=500;},     reward:7500},
+  {id:'sell_100',  name:'Торговец',        desc:'Продай 100 слитков',           icon:'🛒', check:function(){return (S.soldCount||0)>=100;},     reward:1200},
+  {id:'sell_500',  name:'Оптовая торговля',desc:'Продай 500 слитков',           icon:'🏪', check:function(){return (S.soldCount||0)>=500;},     reward:7500},
   {id:'daily_7',   name:'Верный',          desc:'Забирай награду 7 дней',      icon:'📅', check:function(){return (S.dailyStreak||0)>=7;},     reward:2500},
   {id:'multi_10',  name:'Мульти-мастер',   desc:'10 мульти-открытий',          icon:'🎰', check:function(){return (S.multiOpens||0)>=10;},     reward:1800},
-  {id:'first_show',name:'Витрина',         desc:'Выставь первый камень',       icon:'🖼️', check:function(){return (S.showcase.length>0);},     reward:400},
+  {id:'first_show',name:'Витрина',         desc:'Выставь первый слиток',       icon:'🖼️', check:function(){return (S.showcase.length>0);},     reward:400},
   {id:'full_show', name:'Полная витрина',  desc:'Заполни все 3 слота витрины', icon:'🖼️', check:function(){return (S.showcase.length>=3);},    reward:1200},
   {id:'lvl_5',     name:'Опытный',         desc:'Достигни 5 уровня',           icon:'⭐', check:function(){return (S.level||1)>=5;},           reward:400},
   {id:'lvl_10',    name:'Ветеран',         desc:'Достигни 10 уровня',          icon:'🌟', check:function(){return (S.level||1)>=10;},          reward:1500},
@@ -1744,10 +1757,10 @@ function makeItem(rarityId, shapeIdx){
   var t=Math.pow(Math.random(),1.7);
   var value=Math.max(r.min,Math.round((r.min+t*(r.max-r.min))*100)/100);
   return {id:'i'+Date.now().toString(36)+(_uid++).toString(36),shape:si,
-    material:mat.n,color:mat.c,rarity:rarityId,value:value,ts:Date.now()};
+    material:'Золотой слиток',color:'#ffd84a',rarity:rarityId,value:value,ts:Date.now()};
 }
 function makeHighItem(r){return makeItem(r,Math.random()<.5?7:8);}
-function itemName(it){return it.material+' · '+GEM_SHAPES[it.shape].n;}
+function itemName(it){return 'Золотой слиток · '+fmtGold(it.value)+' G';}
 
 function xpNeeded(level){return 100 + (level-1) * 50;}
 function levelUpReward(level){return 100 + level * 40;}
@@ -1795,6 +1808,14 @@ function defaultSave(){
     lastSaveSyncAt: 0
   };
 }
+function normalizeGoldBarItem(it){
+  if(!it || typeof it!=='object') return it;
+  if(typeof it.value!=='number' || !isFinite(it.value) || it.value<1) it.value=10;
+  it.value=Math.max(1,Math.round(it.value*100)/100);
+  it.material='Золотой слиток';
+  it.color='#ffd84a';
+  return it;
+}
 function normalizeSave(raw){
   if(!raw||typeof raw!=='object'||!Array.isArray(raw.inv)) return null;
   var base=defaultSave();
@@ -1808,6 +1829,7 @@ function normalizeSave(raw){
     if(typeof it.material!=='string') it.material='Стекло';
     if(typeof it.color!=='string') it.color='#9dc5d6';
     if(typeof it.id!=='string') it.id='i'+Math.random().toString(36).slice(2);
+    normalizeGoldBarItem(it);
     return it;
   });
   ['gold','opened','spent','earned','upWin','upLose','upStaked','totalDrops',
@@ -1902,7 +1924,7 @@ function sendNotification(title, body){
   if(!S || !S.notifications) return;
   if(!notifSupported() || Notification.permission !== 'granted') return;
   try{
-    var n = new Notification(title, { body: body, tag: 'crystal-free-ready', silent: false });
+    var n = new Notification(title, { body: body, tag: 'gold-free-ready', silent: false });
     setTimeout(function(){ try{ n.close(); }catch(e){} }, 8000);
   }catch(e){}
 }
@@ -2825,17 +2847,16 @@ function goldItemSvg(item){
 
 function makeCard(item,cls){
   var r=RARITIES[item.rarity]||RARITIES[0];
-  var shp=GEM_SHAPES[item.shape]||GEM_SHAPES[0];
   var el=document.createElement('div');
-  el.className='card'+(cls?' '+cls:'');
-  el.style.borderColor=hexA(r.color,0.4);
-  el.style.background='linear-gradient(180deg, '+hexA(r.color,0.15)+' 0%, '+varColor('--bg-card')+' 60%)';
-  el.style.setProperty('--glow-color',hexA('#ffd166',0.85));
+  el.className='card goldBarCard'+(cls?' '+cls:'');
+  el.style.borderColor=hexA('#d9a92e',0.55);
+  el.style.background='linear-gradient(180deg, rgba(255,205,70,.16) 0%, '+varColor('--bg-card')+' 62%)';
+  el.style.setProperty('--glow-color','rgba(255,190,35,.8)');
   el.innerHTML=
-    '<div class="rar" style="color:'+hexA(r.color,0.9)+'">'+r.name+'</div>'+
-    '<div class="gemBox">'+goldItemSvg(item)+'</div>'+
-    '<div class="weap" style="color:'+r.color+'">Золотой слиток</div>'+
-    '<div class="skin">'+shp.n+'</div>'+
+    '<div class="goldBarTag">ЗОЛОТО</div>'+
+    '<div class="gemBox goldBarBox">'+goldItemSvg(item)+'</div>'+
+    '<div class="weap goldBarTitle">Золотой слиток</div>'+
+    '<div class="skin goldBarQuantity">× '+fmtGold(item.value)+' G</div>'+
     '<div class="val"><span class="goldMark">G</span> '+fmtGold(item.value)+'</div>';
   return el;
 }
@@ -3018,7 +3039,7 @@ function renderCases(){
         if(isFree){
           btn.textContent=left>0?('ЖДИ '+Math.ceil(left/1000)+'с'):'БЕСПЛАТНО';
         } else {
-          btn.textContent='<span class="goldMark">G</span> '+fmtGold(tp);
+          btn.innerHTML='<span class="goldMark">G</span> '+fmtGold(tp);
         }
         btn.className='btn caseBtn '+(ready?'primary':'');
         btn.disabled=!ready;
@@ -3207,16 +3228,15 @@ function showChainSummary(items, cs){
 
 function showCaseResult(item,cs){
   var r=RARITIES[item.rarity];
-  var shp=GEM_SHAPES[item.shape];
   var res=$('#openResult');
   var isChain=!!chainState && chainState.total>1;
   var nextLabel='НАЗАД';
   if(isChain && chainState.remaining>0) nextLabel='ПРОПУСТИТЬ';
   res.innerHTML=
-    '<div class="rname" style="color:'+r.color+'">'+r.name.toUpperCase()+'</div>'+
-    '<div class="wname">'+item.material+'</div>'+
-    '<div class="skin" style="color:'+r.color+'">'+shp.n+'</div>'+
-    '<div class="meta">Огранка: '+shp.n+'</div>'+
+    '<div class="rname" style="color:'+r.color+'">НАГРАДА</div>'+
+    '<div class="wname">ЗОЛОТОЙ СЛИТОК</div>'+
+    '<div class="skin" style="color:#ffd84a">× '+fmtGold(item.value)+' G</div>'+
+    '<div class="meta">Количество золота</div>'+
     '<div class="price"><span class="goldMark">G</span> '+fmtGold(item.value)+'</div>'+
     '<div class="openBtns">'+
       '<button class="btn primary sm" id="openAgain"></button>'+
@@ -3348,7 +3368,7 @@ function quickOpen(cs){
   box.appendChild(makeCard(won));
   $('#qkRar').innerHTML='<span style="color:'+r.color+';font-weight:800;letter-spacing:2px">'+r.name.toUpperCase()+'</span>';
   $('#qkName').textContent=itemName(won);
-  $('#qkMeta').innerHTML='Огранка: '+GEM_SHAPES[won.shape].n+' · <b><span class="goldMark">G</span> '+fmtGold(won.value)+'</b>';
+  $('#qkMeta').innerHTML='Количество золота: <b><span class="goldMark">G</span> '+fmtGold(won.value)+'</b>';
 
   var again=$('#qkAgain');
   var freeCd=cs.id==='free';
@@ -3443,7 +3463,7 @@ function renderInvChips(){
   var sep=document.createElement('div');
   sep.style.cssText='width:1px;background:#253147;flex:0 0 auto;margin:4px 2px';
   wrap.appendChild(sep);
-  [['value','💰 Цена'],['rarity','⭐ Редкость'],['new','🕒 Новые']].forEach(function(p){
+  [['value','💰 Цена'],['rarity','G Количество'],['new','🕒 Новые']].forEach(function(p){
     var c=document.createElement('div');
     c.className='chip'+(invSort===p[0]?' on':'');
     c.textContent=p[1];
@@ -3459,7 +3479,7 @@ function renderInventory(){
   items.sort(SORTS[invSort]);
   if(items.length===0){
     grid.innerHTML='<div class="empty" style="grid-column:1/-1">'+
-      (S.inv.length?'Нет наград с таким фильтром':'Коллекция пуста.<br>Спустись в бесплатную шахту!')+'</div>';
+      (S.inv.length?'Нет слитков с таким фильтром':'Коллекция пуста.<br>Спустись в бесплатную шахту!')+'</div>';
     updateInvFoot();
     return;
   }
@@ -3481,7 +3501,7 @@ function renderInventory(){
 function countDupes(){
   var seen={},d=0;
   S.inv.slice().sort(function(a,b){return b.value-a.value;}).forEach(function(it){
-    var k=it.shape+'|'+it.material;
+    var k=String(Math.round(it.value*100)/100);
     if(seen[k]) d++;
     else seen[k]=true;
   });
@@ -3504,7 +3524,7 @@ $('#btnSellAll').addEventListener('click',function(){
   if(!sell.length){toast('Нечего обменивать');return;}
   var total=sell.reduce(function(s,i){return s+sellPrice(i);},0);
   showConfirm('Продать всё лишнее?',
-    'Будет продано <b>'+sell.length+'</b> наград за <b><span class="goldMark">G</span> '+fmtGold(total)+'</b>.<br>Камни с витрины останутся.',
+    'Будет продано <b>'+sell.length+'</b> наград за <b><span class="goldMark">G</span> '+fmtGold(total)+'</b>.<br>Слитки с витрины останутся.',
     function(){
       S.inv=keep;
       S.gold+=total; S.earned+=total;
@@ -3522,7 +3542,7 @@ $('#btnSellAll').addEventListener('click',function(){
 $('#btnSellDupes').addEventListener('click',function(){
   var seen={},dupes=[];
   S.inv.slice().sort(function(a,b){return b.value-a.value;}).forEach(function(it){
-    var k=it.shape+'|'+it.material;
+    var k=String(Math.round(it.value*100)/100);
     if(seen[k]) dupes.push(it);
     else seen[k]=true;
   });
@@ -3576,10 +3596,9 @@ function openItemModal(it){
   info.className='stat';
   info.style.marginTop='26px';
   info.innerHTML=
-    '<div style="color:'+r.color+';font-weight:800;letter-spacing:2px;font-size:12px">'+r.name.toUpperCase()+'</div>'+
-    '<div style="font-size:20px;font-weight:900;color:var(--text-main);margin:4px 0">'+itemName(it)+'</div>'+
-    '<div>Огранка: '+GEM_SHAPES[it.shape].n+'</div>'+
-    '<div style="margin-top:6px;font-size:16px;color:var(--gold);font-weight:800"><span class="goldMark">G</span> '+fmtGold(it.value)+'</div>'+
+    '<div style="color:#e9b52f;font-weight:900;letter-spacing:2px;font-size:12px">ЗОЛОТОЙ СЛИТОК</div>'+
+    '<div style="font-size:22px;font-weight:900;color:var(--text-main);margin:4px 0">Количество: '+fmtGold(it.value)+' G</div>'+
+    '<div style="margin-top:6px;font-size:16px;color:var(--gold);font-weight:800">Стоимость: <span class="goldMark">G</span> '+fmtGold(it.value)+'</div>'+
     '<div style="margin-top:4px;font-size:12px;color:var(--text-muted)">Продажа за: '+fmtGold(sellPrice(it))+' <span class="goldMark">G</span></div>';
   body.appendChild(info);
   var eq=$('#imEquip');
@@ -3629,11 +3648,11 @@ $('#imSell').addEventListener('click',function(){
     if(window.publishMyScore) window.publishMyScore();
   };
   if(it.rarity>=4){
-    showConfirm('Продать камень?','«'+itemName(it)+'» за <b><span class="goldMark">G</span> '+fmtGold(price)+'</b>',doSell);
+    showConfirm('Продать слиток?','«'+itemName(it)+'» за <b><span class="goldMark">G</span> '+fmtGold(price)+'</b>',doSell);
   } else doSell();
 });
 
-/* ============ ОГРАНКА ============ */
+/* ============ АПГРЕЙД ============ */
 var upSel=[],upTarget=null,upTargets=[],upBusy=false;
 function upTotal(){return upSel.reduce(function(s,i){return s+i.value;},0);}
 function upChanceValue(){
@@ -3647,19 +3666,19 @@ function renderUpgrade(){
   $('#btnDoUpgrade').disabled=true;
   $('#btnUpReset').disabled=false;
   $('#upMineSum').textContent='';
-  $('#upChance').innerHTML='Выберите слоты для апгрейда<small>Шанс = сумма / стоимость цели (макс. 80%)</small>';
+  $('#upChance').innerHTML='Выберите слитки для апгрейда<small>Шанс = сумма / стоимость цели (макс. 80%)</small>';
   var hub=$('#upHubPct');
   if(hub){ hub.textContent='—'; hub.className='hubPct'; }
   var w=$('#upWheel');
   w.style.transition='none'; w.style.transform='rotate(0deg)';
   w.style.background='conic-gradient(#243044 0deg 360deg)';
   renderUpMine();
-  $('#upTargets').innerHTML='<div class="empty" style="padding:14px">Сначала выберите свой камень</div>';
+  $('#upTargets').innerHTML='<div class="empty" style="padding:14px">Сначала выберите свой слиток</div>';
   updateUpButton();
 }
 function renderUpMine(){
   var row=$('#upMine'); row.innerHTML='';
-  if(S.inv.length===0){row.innerHTML='<div class="empty" style="padding:14px">Нет камней</div>';return;}
+  if(S.inv.length===0){row.innerHTML='<div class="empty" style="padding:14px">Нет слитков</div>';return;}
   S.inv.slice().sort(function(a,b){return b.value-a.value;}).forEach(function(it){
     var c=makeCard(it,'tap');
     if(upSel.some(function(x){return x.id===it.id;})){
@@ -3678,7 +3697,7 @@ function renderUpMine(){
       for(var i=0;i<upSel.length;i++) if(upSel[i].id===it.id){idx=i;break;}
       if(idx>=0){upSel.splice(idx,1);}
       else {
-        if(upSel.length>=3){toast('Максимум 3 камня');return;}
+        if(upSel.length>=3){toast('Максимум 3 слитка');return;}
         upSel.push(it);
       }
       if(upSel.length===0){upTarget=null;upTargets=[];}
@@ -3708,7 +3727,7 @@ function genTargets(){
 }
 function renderUpTargets(){
   var row=$('#upTargets'); row.innerHTML='';
-  if(!upTargets.length){row.innerHTML='<div class="empty" style="padding:14px">Сначала выберите свой камень</div>';return;}
+  if(!upTargets.length){row.innerHTML='<div class="empty" style="padding:14px">Сначала выберите свой слиток</div>';return;}
   var total=upTotal();
   upTargets.forEach(function(t){
     t._chance=clamp(total/t.value*100,3,80);
@@ -3743,7 +3762,7 @@ function updateUpButton(){
   } else {
     btn.disabled=true;
     if(hub){ hub.textContent='—'; hub.className='hubPct'; }
-    if(!upSel.length) $('#upChance').innerHTML='Выберите слоты для апгрейда<small>Объединяйте до 3 камней</small>';
+    if(!upSel.length) $('#upChance').innerHTML='Выберите слитки для апгрейда<small>Объединяйте до 3 слитков</small>';
     else $('#upChance').innerHTML=fmtGold(upTotal())+' <span class="goldMark">G</span> <small>Выберите цель снизу</small>';
   }
 }
@@ -3836,7 +3855,7 @@ $('#btnDoUpgrade').addEventListener('click',function(){
       $('#upOvText').innerHTML='Получено: <b>'+itemName(resultItem)+'</b><br>Стоимость: <b><span class="goldMark">G</span> '+fmtGold(resultItem.value)+'</b>';
     } else {
       box.className='';
-      $('#upOvText').innerHTML='Потеряно камней: <b>'+selSnapshot.length+'</b><br>Общая сумма: <b><span class="goldMark">G</span> '+fmtGold(stakedValue)+'</b>';
+      $('#upOvText').innerHTML='Потеряно слитков: <b>'+selSnapshot.length+'</b><br>Общая сумма: <b><span class="goldMark">G</span> '+fmtGold(stakedValue)+'</b>';
     }
     ov.classList.add('active');
 
@@ -4555,7 +4574,7 @@ function renderProfile(){
   html+='<div class="sectionTitle">Статистика</div><div class="statGrid">'+
     '<div class="statCard gold"><div class="lbl">Баланс</div><div class="val"><span class="goldMark">G</span> '+fmtGold(S.gold)+'<small>текущая голда</small></div></div>'+
     '<div class="statCard purple"><div class="lbl">Коллекция</div><div class="val">'+S.inv.length+'<small>'+fmtGold(totalInventoryValue())+' <span class="goldMark">G</span> ценность</small></div></div>'+
-    '<div class="statCard"><div class="lbl">Всего добыто</div><div class="val">'+S.opened+'<small>камней за все время</small></div></div>'+
+    '<div class="statCard"><div class="lbl">Всего добыто</div><div class="val">'+S.opened+'<small>слитков за всё время</small></div></div>'+
     '<div class="statCard green"><div class="lbl">Огранки</div><div class="val">'+S.upWin+' / '+(S.upWin+S.upLose)+'<small>успех '+upWinRate()+'</small></div></div>'+
     '<div class="statCard"><div class="lbl">Потрачено</div><div class="val"><span class="goldMark">G</span> '+fmtGold(S.spent)+'<small>на шахты и огранку</small></div></div>'+
     '<div class="statCard green"><div class="lbl">Заработано</div><div class="val"><span class="goldMark">G</span> '+fmtGold(S.earned)+'<small>с продаж</small></div></div>'+
